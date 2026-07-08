@@ -21,12 +21,5 @@
         inherit dxc we-layerd;
         default = we-layerd;
       };
-
-      overlays.default = final: prev: {
-        dxc = final.callPackage ./dxc.nix {};
-        we-layerd = final.callPackage ./we-layerd.nix {
-          dxc = final.dxc;
-        };
-      };
     };
 }

@@ -27,26 +27,15 @@
 
 ### 2. 安装到系统
 
-**方式一：NixOS systemPackages**
+**NixOS systemPackages**
 
 ```nix
-# configuration.nix 或 NixOS 模块中
 environment.systemPackages = [
   inputs.we-layerd.packages.x86_64-linux.default
 ];
 ```
 
-**方式二：Overlay**
-
-```nix
-nixpkgs.overlays = [ inputs.we-layerd.overlays.default ];
-
-environment.systemPackages = [
-  pkgs.we-layerd
-];
-```
-
-**方式三：Home Manager**
+**Home Manager**
 
 ```nix
 home.packages = [
