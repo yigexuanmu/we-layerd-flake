@@ -43,12 +43,6 @@ home.packages = [
 ];
 ```
 
-### 3. 单独安装 DXC
-
-```nix
-inputs.we-layerd.packages.x86_64-linux.dxc
-```
-
 ## 配置
 
 从示例配置开始：
