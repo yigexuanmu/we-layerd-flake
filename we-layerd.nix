@@ -116,6 +116,20 @@ rustPlatform.buildRustPackage {
     # Install we-gui binary
     cp target/release/we-gui $out/bin/we-gui 2>/dev/null || true
     chmod 755 $out/bin/we-gui 2>/dev/null || true
+
+    # Install .desktop file
+    mkdir -p $out/share/applications
+    cat > $out/share/applications/we-gui.desktop << EOF
+    [Desktop Entry]
+    Type=Application
+    Name=we-gui
+    Comment=Wallpaper Engine helper GUI for Linux
+    Exec=$out/bin/we-gui
+    Icon=we-gui
+    Terminal=false
+    Categories=Utility;Graphics;
+    StartupNotify=true
+    EOF
   '';
 
   preFixup = ''
