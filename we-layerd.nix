@@ -48,6 +48,8 @@ rustPlatform.buildRustPackage {
 
   cargoLock.lockFile = ./Cargo.lock;
 
+  cargoBuildFlags = ["--workspace"];
+
   nativeBuildInputs = [
     cmake
     pkg-config
