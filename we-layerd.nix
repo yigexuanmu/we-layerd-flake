@@ -31,6 +31,7 @@
   pulseaudio,
   pipewire,
   openssl,
+  xdotool,
   version ? "unstable",
 }:
 
