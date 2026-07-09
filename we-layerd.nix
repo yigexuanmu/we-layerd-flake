@@ -119,17 +119,17 @@ rustPlatform.buildRustPackage {
 
     # Install .desktop file
     mkdir -p $out/share/applications
-    cat > $out/share/applications/we-gui.desktop << EOF
-    [Desktop Entry]
-    Type=Application
-    Name=we-gui
-    Comment=Wallpaper Engine helper GUI for Linux
-    Exec=$out/bin/we-gui
-    Icon=we-gui
-    Terminal=false
-    Categories=Utility;Graphics;
-    StartupNotify=true
-    EOF
+    cat > $out/share/applications/we-gui.desktop <<'EOF'
+[Desktop Entry]
+Type=Application
+Name=we-gui
+Comment=Wallpaper Engine helper GUI for Linux
+Exec=we-gui
+Icon=we-gui
+Terminal=false
+Categories=Utility;Graphics;
+StartupNotify=true
+EOF
   '';
 
   preFixup = ''
