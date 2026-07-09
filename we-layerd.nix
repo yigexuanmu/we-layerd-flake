@@ -74,6 +74,7 @@ rustPlatform.buildRustPackage {
     gst_all_1.gst-plugins-bad
     gst_all_1.gst-plugins-good
     gst_all_1.gst-plugins-ugly
+    gst_all_1.libav
     lz4
     pango
     fontconfig
@@ -160,6 +161,7 @@ EOF
         gst_all_1.gst-plugins-bad
         gst_all_1.gst-plugins-good
         gst_all_1.gst-plugins-ugly
+        gst_all_1.libav
       ]}
     )
   '';
