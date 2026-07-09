@@ -127,6 +127,18 @@ rustPlatform.buildRustPackage {
         pulseaudio
         pipewire
         libappindicator-gtk3
+        wayland
+        libxkbcommon
+        gtk3
+        vulkan-loader
+        mesa
+        libGL
+        glib
+        libx11
+        pango
+        fontconfig
+        freetype
+        libva
       ]}
       --prefix GST_PLUGIN_SYSTEM_PATH_1_0 : ${lib.makeSearchPath "lib/gstreamer-1.0" [
         gst_all_1.gstreamer
