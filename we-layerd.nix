@@ -30,6 +30,7 @@
   alsa-lib,
   pulseaudio,
   pipewire,
+  openssl,
   version ? "unstable",
 }:
 
@@ -83,6 +84,7 @@ rustPlatform.buildRustPackage {
     alsa-lib
     pulseaudio
     pipewire
+    openssl
   ];
 
   postPatch = ''

@@ -5,6 +5,7 @@
 ## 包含内容
 
 - **we-layerd** — 基于 Rust 的 Wallpaper Engine Wayland 原生运行时，支持 layer-shell
+- **we-gui** — 基于 iced 的图形界面，用于浏览创意工坊壁纸和配置生成
 - **DXC** — 微软官方 DirectX Shader 编译器（v1.8.2502），用于渲染 Wallpaper Engine 着色器
 - GStreamer 全插件、CEF 浏览器引擎、Vulkan、PipeWire 音频
 
@@ -65,6 +66,10 @@ cp config.example.toml ~/.config/we-layerd/config.toml
 ## 使用
 
 ```bash
+# 启动 GUI 界面
+we-gui
+
+# 或直接运行守护进程
 we-layerd run --config ~/.config/we-layerd/config.toml
 ```
 
