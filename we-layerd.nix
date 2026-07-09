@@ -126,6 +126,7 @@ rustPlatform.buildRustPackage {
         alsa-lib
         pulseaudio
         pipewire
+        libappindicator-gtk3
       ]}
       --prefix GST_PLUGIN_SYSTEM_PATH_1_0 : ${lib.makeSearchPath "lib/gstreamer-1.0" [
         gst_all_1.gstreamer
