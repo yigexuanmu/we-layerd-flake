@@ -32,6 +32,7 @@
   pipewire,
   openssl,
   xdotool,
+  libappindicator-gtk3,
   version ? "unstable",
 }:
 
@@ -89,6 +90,7 @@ rustPlatform.buildRustPackage {
     pipewire
     openssl
     xdotool
+    libappindicator-gtk3
   ];
 
   postPatch = ''
