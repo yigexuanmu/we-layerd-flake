@@ -87,6 +87,7 @@ rustPlatform.buildRustPackage {
     pulseaudio
     pipewire
     openssl
+    xdotool
   ];
 
   postPatch = ''
