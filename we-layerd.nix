@@ -106,6 +106,10 @@ rustPlatform.buildRustPackage {
     cp target/we-renderer-upstream/install/lib/libwallpaper-engine-renderer.so $out/lib/
     cp target/we-renderer-upstream/install/lib/we-cef-helper $out/lib/ 2>/dev/null || true
     chmod 755 $out/lib/libwallpaper-engine-renderer.so
+
+    # Install we-gui binary
+    cp target/release/we-gui $out/bin/we-gui 2>/dev/null || true
+    chmod 755 $out/bin/we-gui 2>/dev/null || true
   '';
 
   preFixup = ''
@@ -132,5 +136,10 @@ rustPlatform.buildRustPackage {
     homepage = "https://github.com/Aromatic05/we-layerd";
     license = licenses.gpl3Plus;
     mainProgram = "we-layerd";
+    longDescription = ''
+      Includes:
+      - we-layerd: Wallpaper Engine Wayland runtime
+      - we-gui: GUI companion for workshop browsing
+    '';
   };
 }
