@@ -112,6 +112,27 @@ rustPlatform.buildRustPackage {
     cp target/we-renderer-upstream/install/lib/we-cef-helper $out/lib/ 2>/dev/null || true
     chmod 755 $out/lib/libwallpaper-engine-renderer.so
 
+    # Create a unified CEF directory where libcef.so and icudtl.dat coexist.
+    # CEF resolves DIR_MODULE to the directory containing libcef.so, then
+    # looks for icudtl.dat in that same directory. In cef-binary, libcef.so
+    # is in Release/ but icudtl.dat is in Resources/ - they never meet.
+    # By symlinking both into one directory and making LD_LIBRARY_PATH find
+    # libcef.so there first, DIR_MODULE resolves to our directory and
+    # CEF finds icudtl.dat right next to it.
+    mkdir -p $out/lib/cef
+    ln -s ${cef-binary}/Release/libcef.so $out/lib/cef/
+    ln -s ${cef-binary}/Release/libEGL.so $out/lib/cef/
+    ln -s ${cef-binary}/Release/libGLESv2.so $out/lib/cef/
+    ln -s ${cef-binary}/Release/libvk_swiftshader.so $out/lib/cef/
+    ln -s ${cef-binary}/Release/libvulkan.so.1 $out/lib/cef/
+    ln -s ${cef-binary}/Release/v8_context_snapshot.bin $out/lib/cef/
+    ln -s ${cef-binary}/Release/vk_swiftshader_icd.json $out/lib/cef/
+    ln -s ${cef-binary}/Resources/icudtl.dat $out/lib/cef/
+    ln -s ${cef-binary}/Resources/chrome_100_percent.pak $out/lib/cef/
+    ln -s ${cef-binary}/Resources/chrome_200_percent.pak $out/lib/cef/
+    ln -s ${cef-binary}/Resources/resources.pak $out/lib/cef/
+    ln -s ${cef-binary}/Resources/locales $out/lib/cef/
+
     # Install we-gui binary
     cp target/release/we-gui $out/bin/we-gui 2>/dev/null || true
     chmod 755 $out/bin/we-gui 2>/dev/null || true
@@ -137,7 +158,7 @@ EOF
       --set WE_CEF_RESOURCES_DIR ${cef-binary}/Resources
       --set WE_CEF_LOCALES_DIR ${cef-binary}/Resources/locales
       --set WE_CEF_HELPER_PATH $out/lib/we-cef-helper
-      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [
+      --prefix LD_LIBRARY_PATH : $out/lib/cef:${lib.makeLibraryPath [
         zlib
         libdrm
         alsa-lib
