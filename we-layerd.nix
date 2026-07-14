@@ -133,6 +133,7 @@ EOF
 
   preFixup = ''
     gappsWrapperArgs+=(
+      --set CEF_ROOT ${cef-binary}
       --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [
         zlib
         libdrm
