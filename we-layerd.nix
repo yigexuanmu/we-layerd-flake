@@ -36,17 +36,18 @@
   version ? "unstable",
 }:
 
-rustPlatform.buildRustPackage {
-  pname = "we-layerd";
-  inherit version;
-
+let
   src = fetchFromGitHub {
     owner = "Aromatic05";
     repo = "we-layerd";
     rev = "7eba79da2d68d1dc9077dd463a1eb65f4aa23994";
-    hash = "sha256-aP9Yka26Y08j8gHhpUr9VdMhHNKKStoBK4FDV8LytG0=";
+    hash = "sha256-pxTi34sgDr+7GgTrXVOALe9s//i3Wvrmu4XKf6Cui5I=";
     fetchSubmodules = true;
   };
+in
+rustPlatform.buildRustPackage {
+  pname = "we-layerd";
+  inherit version src;
 
   cargoLock.lockFile = "${src}/Cargo.lock";
 
