@@ -48,7 +48,7 @@ rustPlatform.buildRustPackage {
     fetchSubmodules = true;
   };
 
-  cargoLock.lockFile = ./Cargo.lock;
+  cargoLock.lockFile = "${src}/Cargo.lock";
 
   cargoBuildFlags = ["--workspace"];
 
