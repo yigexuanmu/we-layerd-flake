@@ -33,6 +33,8 @@
   openssl,
   xdotool,
   libappindicator-gtk3,
+  patchelf,
+  gcc,
   version ? "unstable",
 }:
 
@@ -59,6 +61,7 @@ rustPlatform.buildRustPackage {
     wrapGAppsHook3
     git
     wayland-scanner
+    patchelf
   ];
 
   buildInputs = [
@@ -111,6 +114,15 @@ rustPlatform.buildRustPackage {
     cp target/we-renderer-upstream/install/lib/libwallpaper-engine-renderer.so $out/lib/
     cp target/we-renderer-upstream/install/lib/we-cef-helper $out/lib/ 2>/dev/null || true
     chmod 755 $out/lib/libwallpaper-engine-renderer.so
+
+    # Patch we-cef-helper for NixOS - it's a raw CEF binary not patched for Nix
+    chmod 755 $out/lib/we-cef-helper
+    patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
+      --set-rpath "${cef-binary}/Release:${cef-binary}/Resources:${gcc.cc.lib}/lib:${lib.makeLibraryPath [
+        zlib libdrm alsa-lib pulseaudio pipewire wayland libxkbcommon gtk3
+        vulkan-loader mesa libGL glib libx11 pango fontconfig freetype libva
+      ]}" \
+      $out/lib/we-cef-helper || true
 
     # Create a unified CEF directory where libcef.so and icudtl.dat coexist.
     # CEF resolves DIR_MODULE to the directory containing libcef.so, then
