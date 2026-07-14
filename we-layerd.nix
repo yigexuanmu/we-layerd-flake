@@ -100,6 +100,14 @@ rustPlatform.buildRustPackage {
   postPatch = ''
     sed -i '/fn ensure_recursive_submodules/,/^}/c\fn ensure_recursive_submodules(_upstream_root: \&Path) {}\n' build.rs
     sed -i '/target_include_directories(we-cef-helper/a\        ''${_CEF_ROOT}' third_party/wallpaper-engine-renderer/src/backend/web/CMakeLists.txt
+    # Patch OnBeforeCommandLineProcessing to apply GL/GPU switches to ALL
+    # processes (not just the browser process). The upstream code returns
+    # early for subprocesses assuming they "inherit" switches, but
+    # --use-gl and --use-angle are NOT inherited by GPU/renderer
+    # subprocesses, causing "gl=none,angle=none" errors.
+    sed -i 's|// Only tweak the browser process command line. Renderer / utility|// Apply GL/GPU switches to ALL processes (browser + renderer + GPU).|' third_party/wallpaper-engine-renderer/src/backend/web/internal/cef/helper/AppHandler.cpp
+    sed -i '/helpers inherit the relevant switches from the browser anyway\./d' third_party/wallpaper-engine-renderer/src/backend/web/internal/cef/helper/AppHandler.cpp
+    sed -i '/if (! process_type.empty()) return;/d' third_party/wallpaper-engine-renderer/src/backend/web/internal/cef/helper/AppHandler.cpp
   '';
 
   preConfigure = ''
@@ -170,7 +178,6 @@ EOF
       --set WE_CEF_RESOURCES_DIR ${cef-binary}/Resources
       --set WE_CEF_LOCALES_DIR ${cef-binary}/Resources/locales
       --set WE_CEF_HELPER_PATH $out/lib/we-cef-helper
-      --set WE_CEF_EXTRA_SWITCHES "--use-gl=egl-angle,--use-angle=opengl,--ignore-gpu-blocklist"
       --prefix LD_LIBRARY_PATH : $out/lib/cef:${lib.makeLibraryPath [
         zlib
         libdrm
