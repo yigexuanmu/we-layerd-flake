@@ -170,7 +170,7 @@ EOF
       --set WE_CEF_RESOURCES_DIR ${cef-binary}/Resources
       --set WE_CEF_LOCALES_DIR ${cef-binary}/Resources/locales
       --set WE_CEF_HELPER_PATH $out/lib/we-cef-helper
-      --set WE_CEF_EXTRA_SWITCHES "--use-gl=swiftshader,--disable-gpu-sandbox"
+      --set WE_CEF_EXTRA_SWITCHES "--use-gl=egl,--ignore-gpu-blocklist"
       --prefix LD_LIBRARY_PATH : $out/lib/cef:${lib.makeLibraryPath [
         zlib
         libdrm
