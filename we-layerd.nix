@@ -43,8 +43,8 @@ rustPlatform.buildRustPackage {
   src = fetchFromGitHub {
     owner = "Aromatic05";
     repo = "we-layerd";
-    rev = "5c2a78d860893f213cc86b9a52d13e909f665e27";
-    hash = "sha256-z35R+3IhFXzmNPmh3GdU9nNGUq2ok0pPT/lW8mJmtSs=";
+    rev = "7eba79da2d68d1dc9077dd463a1eb65f4aa23994";
+    hash = "sha256-aP9Yka26Y08j8gHhpUr9VdMhHNKKStoBK4FDV8LytG0=";
     fetchSubmodules = true;
   };
 
