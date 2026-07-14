@@ -96,8 +96,6 @@ rustPlatform.buildRustPackage {
 
   postPatch = ''
     sed -i '/fn ensure_recursive_submodules/,/^}/c\fn ensure_recursive_submodules(_upstream_root: \&Path) {}\n' build.rs
-    sed -i 's/\.arg("-DBUILD_WEWEB=ON")/.arg("-DBUILD_WEWEB=ON").arg("-DBUILD_WEVIDEO=OFF")/' build.rs
-    sed -i 's/pkg_check_modules(GSTREAMER REQUIRED/pkg_check_modules(GSTREAMER QUIET/' third_party/wallpaper-engine-renderer/src/render/vulkan/CMakeLists.txt
     sed -i '/target_include_directories(we-cef-helper/a\        ''${_CEF_ROOT}' third_party/wallpaper-engine-renderer/src/backend/web/CMakeLists.txt
   '';
 
