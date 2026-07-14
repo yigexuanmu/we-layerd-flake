@@ -143,10 +143,10 @@ rustPlatform.buildRustPackage {
     ln -s ${cef-binary}/Release/libcef.so $out/lib/cef/
     ln -s ${cef-binary}/Release/libEGL.so $out/lib/cef/
     ln -s ${cef-binary}/Release/libGLESv2.so $out/lib/cef/
-    ln -s ${cef-binary}/Release/libvk_swiftshader.so $out/lib/cef/
-    ln -s ${cef-binary}/Release/libvulkan.so.1 $out/lib/cef/
+    # Do NOT symlink libvulkan.so.1 / libvk_swiftshader.so / vk_swiftshader_icd.json
+    # here - they would shadow the real NVIDIA Vulkan driver because this directory
+    # is first in LD_LIBRARY_PATH. CEF disables Vulkan via --use-vulkan=disabled.
     ln -s ${cef-binary}/Release/v8_context_snapshot.bin $out/lib/cef/
-    ln -s ${cef-binary}/Release/vk_swiftshader_icd.json $out/lib/cef/
     ln -s ${cef-binary}/Resources/icudtl.dat $out/lib/cef/
     ln -s ${cef-binary}/Resources/chrome_100_percent.pak $out/lib/cef/
     ln -s ${cef-binary}/Resources/chrome_200_percent.pak $out/lib/cef/
